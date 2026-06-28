@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard — StudyBuddy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/layouts.css">
+  <link rel="stylesheet" href="../css/pages/dashboard.css">
+  <script src="../js/core/theme.js"></script>
+</head>
+<body>
+
+  <div class="app-shell">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar" aria-label="Main Navigation">
+      <a href="../index.html" class="sidebar-brand">
+        <div class="sidebar-logo">S</div>
+        <span class="sidebar-brand-name">Study<span>Buddy</span></span>
+      </a>
+      
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar collapse">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <nav class="sidebar-nav">
+        <div class="sidebar-section-label">Administration</div>
+        <a href="admin.html" class="nav-item active" data-tooltip="Dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span>Dashboard</span>
+        </a>
+        <a href="../pages/academic-records.html" class="nav-item" data-tooltip="Academic Records">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>
+          <span>User Directory</span>
+        </a>
+        <a href="../pages/notices.html" class="nav-item" data-tooltip="Digital Notices">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+          <span>Broadcaster notices</span>
+        </a>
+
+        <div class="sidebar-section-label">Operations</div>
+        <a href="../pages/school-store.html" class="nav-item" data-tooltip="School Store">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+          <span>School Store Inventory</span>
+        </a>
+        <a href="../pages/analytics.html" class="nav-item" data-tooltip="Platform Analytics">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <span>Engagement Logs</span>
+        </a>
+        <a href="../pages/settings.html" class="nav-item" data-tooltip="System Settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+          <span>System Settings</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-user" id="userDropdownBtn" aria-haspopup="true">
+          <div class="avatar avatar-sm" data-user-initials>RK</div>
+          <div class="sidebar-user-info">
+            <div class="sidebar-user-name" data-user-name>Loading...</div>
+            <div class="sidebar-user-role" data-user-role>Admin</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content" id="mainContent">
+      
+      <!-- TOP NAV -->
+      <header class="topnav" id="topnav">
+        <div class="topnav-left">
+          <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open navigation drawer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          <div class="topnav-title">Dashboard</div>
+        </div>
+
+        <div class="topnav-right">
+          <button class="theme-toggle" aria-label="Toggle theme"></button>
+          
+          <!-- Notifications -->
+          <div class="dropdown">
+            <button class="notif-btn" id="notifBtn" aria-label="Notifications" aria-haspopup="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              <span class="notif-count">1</span>
+            </button>
+            <div class="notif-panel" id="notifPanel">
+              <div class="notif-panel-header">
+                <span class="notif-panel-title">Notifications</span>
+              </div>
+              <div class="notif-list">
+                <div class="notif-item unread">
+                  <div class="notif-dot"></div>
+                  <div>
+                    <div class="notif-item-title">System Update Completed</div>
+                    <div class="notif-item-text">Database schema version 2.4 migration finished successfully.</div>
+                    <div class="notif-item-time">1 hour ago</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- User menu -->
+          <div class="dropdown" id="userDropdown">
+            <div class="dropdown-menu" style="right:0;">
+              <a href="../pages/settings.html" class="dropdown-item">Settings</a>
+              <a href="../pages/help-centre.html" class="dropdown-item">Help Centre</a>
+              <div class="dropdown-divider"></div>
+              <button class="dropdown-item danger" data-action="logout">Sign Out</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- PAGE CONTENT -->
+      <main class="page-content">
+        
+        <div class="dashboard-title-row">
+          <div>
+            <h1 class="page-heading">Operations Control Center</h1>
+            <p class="page-subheading" id="adminDateDisplay">System Administration Portal • DPS Delhi</p>
+          </div>
+        </div>
+
+        <!-- STATS GRID -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon blue">👨‍🎓</div>
+            <div>
+              <div class="stat-label">Total Students</div>
+              <div class="stat-value">1,248</div>
+              <div class="stat-change up">▲ 24 new this semester</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green">👩‍🏫</div>
+            <div>
+              <div class="stat-label">Total Teachers</div>
+              <div class="stat-value">84</div>
+              <div class="stat-change">Active in 8 departments</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon amber">🔔</div>
+            <div>
+              <div class="stat-label">Daily Attendance</div>
+              <div class="stat-value">94.8%</div>
+              <div class="stat-change up">▲ 0.4% from yesterday</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon red">🛒</div>
+            <div>
+              <div class="stat-label">Store Requests</div>
+              <div class="stat-value">8 Pending</div>
+              <div class="stat-change text-error">Requires dispatch</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DASHBOARD GRID -->
+        <div class="dashboard-grid">
+          
+          <!-- Left Column (Overview logs & user lists) -->
+          <div class="widget-list">
+            
+            <!-- Platform engagement chart -->
+            <div class="card">
+              <div class="chart-widget-header">
+                <div>
+                  <h2 class="card-title">Daily Platform Activity Metrics</h2>
+                  <p class="card-subtitle">Active student & teacher login sessions</p>
+                </div>
+              </div>
+              <div class="chart-container" style="height:220px;">
+                <canvas id="adminActivityChart" data-chart="line"></canvas>
+              </div>
+            </div>
+
+            <!-- Resource request quick list -->
+            <div class="card">
+              <div class="card-header">
+                <h2 class="card-title">Pending Store Orders</h2>
+                <a href="../pages/school-store.html" class="btn btn-ghost btn-sm">Process Orders →</a>
+              </div>
+              <div class="table-container">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Order ID</th>
+                      <th>Student</th>
+                      <th>Class</th>
+                      <th>Resource Details</th>
+                      <th>Actions</th>
+                    </tr>
+                  </thead>
+                  <tbody id="adminStoreOrdersBody">
+                    <!-- Will render dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Column (Users & Action logs) -->
+          <div class="widget-list">
+            
+            <!-- Database Management -->
+            <div class="card">
+              <h2 class="card-title mb-4">Core Control actions</h2>
+              <div class="quick-actions-grid">
+                <button class="quick-action-btn" id="backupDatabaseBtn">
+                  <span>💾</span>
+                  Backup Database
+                </button>
+                <a href="../pages/academic-records.html" class="quick-action-btn">
+                  <span>➕</span>
+                  Add New User
+                </a>
+                <button class="quick-action-btn" id="systemAuditBtn">
+                  <span>📜</span>
+                  View Audit Logs
+                </button>
+                <a href="../pages/settings.html" class="quick-action-btn">
+                  <span>⚙️</span>
+                  System Config
+                </a>
+              </div>
+            </div>
+
+            <!-- Recent activity logs -->
+            <div class="card">
+              <h2 class="card-title mb-3">Recent Admin Operations Log</h2>
+              <div class="widget-list" id="adminAuditLogsList" style="gap:8px;">
+                <!-- Will render dynamically -->
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+      </main>
+    </div>
+
+  </div>
+
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <script src="../js/core/auth.js"></script>
+  <script src="../js/components/nav.js"></script>
+  <script src="../js/components/charts.js"></script>
+  <script src="../js/components/toast.js"></script>
+  <script src="../js/pages/dashboard-admin.js"></script>
+</body>
+</html>

@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Timetable — StudyBuddy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/layouts.css">
+  <script src="../js/core/theme.js"></script>
+  <style>
+    /* Specific styling for Timetable Grid */
+    .timetable-grid-container {
+      display: grid;
+      grid-template-columns: 80px repeat(5, 1fr);
+      gap: 12px;
+      margin-top: var(--sp-4);
+    }
+    .timetable-header-cell {
+      font-size: var(--text-xs);
+      font-weight: var(--fw-semibold);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      text-align: center;
+      padding: var(--sp-2) 0;
+      background: var(--bg-surface-2);
+      border-radius: var(--radius-md);
+    }
+    .timetable-time-axis {
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      font-family: var(--font-mono);
+      font-size: 11px;
+      color: var(--text-muted);
+      align-items: center;
+      padding-top: 10px;
+    }
+    .timetable-day-col {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      min-height: 480px;
+      background: var(--bg-surface-2);
+      border-radius: var(--radius-xl);
+      padding: var(--sp-3);
+      border: 1px dashed var(--border-color);
+    }
+    .slot-card {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-left: 3px solid var(--color-primary);
+      border-radius: var(--radius-md);
+      padding: var(--sp-3);
+      font-size: var(--text-xs);
+      position: relative;
+      cursor: pointer;
+      transition: all var(--transition-base);
+    }
+    .slot-card:hover {
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-md);
+    }
+    .slot-card.math { border-left-color: var(--color-primary); }
+    .slot-card.science { border-left-color: var(--color-emerald); }
+    .slot-card.english { border-left-color: var(--color-warning); }
+    .slot-card.history { border-left-color: var(--color-error); }
+    .slot-card.study { border-left-color: var(--color-navy); }
+
+    .slot-time {
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+      margin-bottom: var(--sp-1);
+    }
+    .slot-title {
+      font-weight: var(--fw-bold);
+      color: var(--text-primary);
+      margin-bottom: 2px;
+    }
+    .slot-room {
+      color: var(--text-muted);
+    }
+    .slot-delete-btn {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      opacity: 0;
+      color: var(--color-error);
+      transition: opacity var(--transition-fast);
+    }
+    .slot-card:hover .slot-delete-btn {
+      opacity: 1;
+    }
+
+    @media (max-width: 900px) {
+      .timetable-grid-container {
+        grid-template-columns: 1fr;
+      }
+      .timetable-time-axis {
+        display: none;
+      }
+      .timetable-day-col {
+        min-height: auto;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-shell">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar" aria-label="Main Navigation">
+      <a href="../index.html" class="sidebar-brand">
+        <div class="sidebar-logo">S</div>
+        <span class="sidebar-brand-name">Study<span>Buddy</span></span>
+      </a>
+      
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar collapse">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <nav class="sidebar-nav" id="sidebarNav">
+        <!-- Injected dynamically -->
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-user" id="userDropdownBtn" aria-haspopup="true">
+          <div class="avatar avatar-sm" data-user-initials>--</div>
+          <div class="sidebar-user-info">
+            <div class="sidebar-user-name" data-user-name>Loading...</div>
+            <div class="sidebar-user-role" data-user-role>User</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content" id="mainContent">
+      
+      <!-- TOP NAV -->
+      <header class="topnav" id="topnav">
+        <div class="topnav-left">
+          <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open navigation drawer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          <div class="topnav-title">Smart Timetable</div>
+        </div>
+
+        <div class="topnav-right">
+          <button class="theme-toggle" aria-label="Toggle theme"></button>
+          <div class="dropdown" id="userDropdown">
+            <div class="dropdown-menu" style="right:0;">
+              <a href="settings.html" class="dropdown-item">Settings</a>
+              <a href="help-centre.html" class="dropdown-item">Help Centre</a>
+              <div class="dropdown-divider"></div>
+              <button class="dropdown-item danger" data-action="logout">Sign Out</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- PAGE CONTENT -->
+      <main class="page-content">
+        
+        <div class="page-header">
+          <div>
+            <nav class="breadcrumb" aria-label="Breadcrumbs" id="autoBreadcrumb"></nav>
+            <h1 class="page-heading mt-2">Class & Study Schedule</h1>
+            <p class="page-subheading">Organize your classes and private study sessions. Check conflict notifications.</p>
+          </div>
+          <div>
+            <button class="btn btn-primary" id="addSessionBtn" aria-haspopup="dialog">
+              <span>📅 Add Study Session</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- CONFLICT DETECTION WARNING ALERT -->
+        <div class="alert alert-warning hidden mb-6" id="conflictAlert" role="alert">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+          <div>
+            <strong class="text-warning">Schedule Conflict Detected!</strong>
+            <span id="conflictAlertText" style="display:block;font-size:var(--text-xs);margin-top:2px;">Some slots are overlapping. Please adjust your study times.</span>
+          </div>
+        </div>
+
+        <!-- TIMETABLE WEEK GRID -->
+        <div class="card" style="background:var(--bg-surface);overflow-x:auto;">
+          <div class="timetable-grid-container" style="min-width: 800px;">
+            
+            <!-- Headers -->
+            <div></div> <!-- Spacer -->
+            <div class="timetable-header-cell">Monday</div>
+            <div class="timetable-header-cell">Tuesday</div>
+            <div class="timetable-header-cell">Wednesday</div>
+            <div class="timetable-header-cell">Thursday</div>
+            <div class="timetable-header-cell">Friday</div>
+
+            <!-- Time axis column -->
+            <div class="timetable-time-axis">
+              <div>09:00 AM</div>
+              <div>10:30 AM</div>
+              <div>12:00 PM</div>
+              <div>01:30 PM</div>
+              <div>03:00 PM</div>
+            </div>
+
+            <!-- Days columns -->
+            <div class="timetable-day-col" id="col-Mon"></div>
+            <div class="timetable-day-col" id="col-Tue"></div>
+            <div class="timetable-day-col" id="col-Wed"></div>
+            <div class="timetable-day-col" id="col-Thu"></div>
+            <div class="timetable-day-col" id="col-Fri"></div>
+
+          </div>
+        </div>
+
+      </main>
+    </div>
+
+  </div>
+
+  <!-- ADD SESSION MODAL -->
+  <div class="modal-overlay" id="sessionModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal" style="max-width:440px;">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modalTitle">Schedule Session</h2>
+        <button class="btn-ghost" id="closeModalBtn" aria-label="Close modal" style="padding:4px;border-radius:50%;display:flex;align-items:center;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <form id="sessionForm" novalidate>
+        <div class="modal-body" style="display:flex;flex-direction:column;gap:16px;">
+          
+          <!-- Subject -->
+          <div class="form-group">
+            <label for="sessionSubject" class="form-label">Subject / Title<span class="required">*</span></label>
+            <input type="text" id="sessionSubject" class="form-input" placeholder="e.g. Maths Revision" required>
+            <span class="form-error" id="subjectError"></span>
+          </div>
+
+          <!-- Day -->
+          <div class="form-group">
+            <label for="sessionDay" class="form-label">Day of Week<span class="required">*</span></label>
+            <select id="sessionDay" class="form-select" required>
+              <option value="Mon">Monday</option>
+              <option value="Tue">Tuesday</option>
+              <option value="Wed">Wednesday</option>
+              <option value="Thu">Thursday</option>
+              <option value="Fri">Friday</option>
+            </select>
+          </div>
+
+          <!-- Time slot -->
+          <div class="form-group">
+            <label for="sessionTime" class="form-label">Time Block<span class="required">*</span></label>
+            <select id="sessionTime" class="form-select" required>
+              <option value="09:00 AM">09:00 AM - 10:15 AM</option>
+              <option value="10:30 AM">10:30 AM - 11:45 AM</option>
+              <option value="01:00 PM">01:00 PM - 02:15 PM</option>
+              <option value="02:30 PM">02:30 PM - 03:45 PM</option>
+            </select>
+          </div>
+
+          <!-- Type -->
+          <div class="form-group">
+            <label for="sessionType" class="form-label">Category Color</label>
+            <select id="sessionType" class="form-select">
+              <option value="study">Private Study (Navy)</option>
+              <option value="math">Maths (Blue)</option>
+              <option value="science">Science (Emerald)</option>
+              <option value="english">English (Amber)</option>
+              <option value="history">History (Red)</option>
+            </select>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" id="cancelModalBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary">Schedule Slot</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <script src="../js/core/auth.js"></script>
+  <script src="../js/components/nav.js"></script>
+  <script src="../js/components/toast.js"></script>
+  <script src="../js/pages/timetable.js"></script>
+</body>
+</html>

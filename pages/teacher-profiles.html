@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher Directory — StudyBuddy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/layouts.css">
+  <script src="../js/core/theme.js"></script>
+  <style>
+    /* Specific directory styling */
+    .profile-card-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--sp-6);
+    }
+    .profile-photo-row {
+      display: flex;
+      gap: var(--sp-4);
+      align-items: center;
+      margin-bottom: var(--sp-4);
+    }
+    .profile-detail-item {
+      font-size: var(--text-xs);
+      color: var(--text-secondary);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .profile-detail-item svg {
+      width: 14px;
+      height: 14px;
+      color: var(--text-muted);
+    }
+    @media (max-width: 900px) {
+      .profile-card-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+    @media (max-width: 600px) {
+      .profile-card-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-shell">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar" aria-label="Main Navigation">
+      <a href="../index.html" class="sidebar-brand">
+        <div class="sidebar-logo">S</div>
+        <span class="sidebar-brand-name">Study<span>Buddy</span></span>
+      </a>
+      
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar collapse">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <nav class="sidebar-nav" id="sidebarNav">
+        <!-- Injected dynamically -->
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-user" id="userDropdownBtn" aria-haspopup="true">
+          <div class="avatar avatar-sm" data-user-initials>--</div>
+          <div class="sidebar-user-info">
+            <div class="sidebar-user-name" data-user-name>Loading...</div>
+            <div class="sidebar-user-role" data-user-role>User</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content" id="mainContent">
+      
+      <!-- TOP NAV -->
+      <header class="topnav" id="topnav">
+        <div class="topnav-left">
+          <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open navigation drawer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          <div class="topnav-title">Teacher Profiles</div>
+        </div>
+
+        <div class="topnav-right">
+          <button class="theme-toggle" aria-label="Toggle theme"></button>
+          <div class="dropdown" id="userDropdown">
+            <div class="dropdown-menu" style="right:0;">
+              <a href="settings.html" class="dropdown-item">Settings</a>
+              <a href="help-centre.html" class="dropdown-item">Help Centre</a>
+              <div class="dropdown-divider"></div>
+              <button class="dropdown-item danger" data-action="logout">Sign Out</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- PAGE CONTENT -->
+      <main class="page-content">
+        
+        <div class="page-header">
+          <div>
+            <nav class="breadcrumb" aria-label="Breadcrumbs" id="autoBreadcrumb"></nav>
+            <h1 class="page-heading mt-2">Faculty Directory</h1>
+            <p class="page-subheading">Connect with school teachers, check department qualifications, and review office hours.</p>
+          </div>
+        </div>
+
+        <!-- SEARCH BAR -->
+        <div class="card card-sm mb-6" style="background:var(--bg-surface);">
+          <div class="search-input">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="directorySearch" placeholder="Search faculty by name, subject, department...">
+          </div>
+        </div>
+
+        <!-- DIRECTORY GRID -->
+        <div class="profile-card-grid animate-fade-in" id="directoryGrid">
+          <!-- Rendered dynamically -->
+        </div>
+
+      </main>
+    </div>
+
+  </div>
+
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <script src="../js/core/auth.js"></script>
+  <script src="../js/components/nav.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const session = SBAuth.requireAuth();
+      if (!session) return;
+      SBAuth.injectUserUI(session);
+
+      /* -------------------------------------------------------
+         DYNAMIC SIDEBAR NAVIGATION
+      ------------------------------------------------------- */
+      const sidebarNav = document.getElementById('sidebarNav');
+      if (sidebarNav) {
+        if (session.role === 'student') {
+          sidebarNav.innerHTML = `
+            <div class="sidebar-section-label">Academic Portal</div>
+            <a href="../dashboards/student.html" class="nav-item" data-tooltip="Dashboard">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              <span>Dashboard</span>
+            </a>
+            <a href="academic-records.html" class="nav-item" data-tooltip="Academic Records">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>
+              <span>Academic Records</span>
+            </a>
+            <a href="timetable.html" class="nav-item" data-tooltip="Timetable">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span>Smart Timetable</span>
+            </a>
+            <div class="sidebar-section-label">Self Management</div>
+            <a href="goal-planner.html" class="nav-item" data-tooltip="Goal Planner">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              <span>Goal Planner</span>
+            </a>
+            <a href="notices.html" class="nav-item" data-tooltip="Digital Notices">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+              <span>Digital Notices</span>
+            </a>
+            <div class="sidebar-section-label">AI & Resources</div>
+            <a href="studybuddy-ai.html" class="nav-item" data-tooltip="StudyBuddy AI">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+              <span>StudyBuddy AI</span>
+            </a>
+            <a href="school-store.html" class="nav-item" data-tooltip="School Store">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+              <span>School Store</span>
+            </a>
+          `;
+        } else {
+          sidebarNav.innerHTML = `
+            <div class="sidebar-section-label">Academic Portal</div>
+            <a href="../dashboards/${session.role}.html" class="nav-item" data-tooltip="Dashboard">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              <span>Dashboard</span>
+            </a>
+            <a href="academic-records.html" class="nav-item" data-tooltip="Academic Records">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>
+              <span>Academic Records</span>
+            </a>
+            <a href="notices.html" class="nav-item" data-tooltip="Digital Notices">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+              <span>Digital Notices</span>
+            </a>
+          `;
+        }
+      }
+
+      /* -------------------------------------------------------
+         DIRECTORY SEED DATA
+      ------------------------------------------------------- */
+      const faculty = [
+        { name: 'Dr. Priya Sharma', dept: 'Mathematics', qualification: 'Ph.D. in Applied Mathematics', exp: '12 Years', contact: 'priya.sharma@studybuddy.edu', hours: 'Mon, Wed 03:00 PM - 04:00 PM', avatar: 'PS', color: 'blue' },
+        { name: 'Prof. Anil Gupta', dept: 'Science (Physics)', qualification: 'M.Sc. in Physics, B.Ed.', exp: '15 Years', contact: 'anil.gupta@studybuddy.edu', hours: 'Tue, Thu 02:00 PM - 03:00 PM', avatar: 'AG', color: 'green' },
+        { name: 'Mrs. Sarah John', dept: 'English literature', qualification: 'M.A. in English Lit', exp: '8 Years', contact: 'sarah.john@studybuddy.edu', hours: 'Fri 01:00 PM - 02:30 PM', avatar: 'SJ', color: 'yellow' }
+      ];
+
+      function renderFaculty() {
+        const query = document.getElementById('directorySearch').value.toLowerCase();
+        const grid = document.getElementById('directoryGrid');
+        if (!grid) return;
+
+        const filtered = faculty.filter(f => 
+          f.name.toLowerCase().includes(query) || 
+          f.dept.toLowerCase().includes(query) ||
+          f.qualification.toLowerCase().includes(query)
+        );
+
+        if (filtered.length === 0) {
+          grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:40px;color:var(--text-muted);">No faculty profiles match your search.</div>`;
+          return;
+        }
+
+        grid.innerHTML = filtered.map(f => `
+          <div class="card card-hover">
+            <div class="profile-photo-row">
+              <div class="avatar avatar-lg" style="background:var(--color-${f.color}-light);color:var(--color-${f.color});">
+                ${f.avatar}
+              </div>
+              <div>
+                <h3 class="text-sm fw-bold">${f.name}</h3>
+                <span class="badge badge-${f.color}">${f.dept}</span>
+              </div>
+            </div>
+
+            <div style="margin-top:16px;">
+              <div class="profile-detail-item">
+                🎓 <span><strong>Qual:</strong> ${f.qualification}</span>
+              </div>
+              <div class="profile-detail-item">
+                💼 <span><strong>Experience:</strong> ${f.exp}</span>
+              </div>
+              <div class="profile-detail-item">
+                🕒 <span><strong>Office Hours:</strong> ${f.hours}</span>
+              </div>
+              <div class="profile-detail-item">
+                ✉️ <span><strong>Contact:</strong> <a href="mailto:${f.contact}">${f.contact}</a></span>
+              </div>
+            </div>
+          </div>
+        `).join('');
+      }
+
+      document.getElementById('directorySearch').addEventListener('input', renderFaculty);
+      renderFaculty();
+    });
+  </script>
+</body>
+</html>

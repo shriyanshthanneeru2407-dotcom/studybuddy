@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Help Centre — StudyBuddy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/layouts.css">
+  <script src="../js/core/theme.js"></script>
+  <style>
+    /* Specific FAQ accordion styling */
+    .faq-list {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+    .faq-item {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-lg);
+      padding: var(--sp-4);
+      cursor: pointer;
+      transition: all var(--transition-base);
+    }
+    .faq-question-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: var(--fw-semibold);
+      font-size: var(--text-sm);
+      color: var(--text-primary);
+    }
+    .faq-answer {
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+      line-height: var(--lh-relaxed);
+      margin-top: var(--sp-3);
+      padding-top: var(--sp-3);
+      border-top: 1px solid var(--border-color-light);
+    }
+    .faq-arrow {
+      transition: transform var(--transition-base);
+      width: 16px;
+      height: 16px;
+      color: var(--text-muted);
+    }
+    .faq-item.active .faq-arrow {
+      transform: rotate(90deg);
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-shell">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar" aria-label="Main Navigation">
+      <a href="../index.html" class="sidebar-brand">
+        <div class="sidebar-logo">S</div>
+        <span class="sidebar-brand-name">Study<span>Buddy</span></span>
+      </a>
+      
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar collapse">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <nav class="sidebar-nav" id="sidebarNav">
+        <!-- Injected dynamically -->
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-user" id="userDropdownBtn" aria-haspopup="true">
+          <div class="avatar avatar-sm" data-user-initials>--</div>
+          <div class="sidebar-user-info">
+            <div class="sidebar-user-name" data-user-name>Loading...</div>
+            <div class="sidebar-user-role" data-user-role>User</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content" id="mainContent">
+      
+      <!-- TOP NAV -->
+      <header class="topnav" id="topnav">
+        <div class="topnav-left">
+          <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open navigation drawer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          <div class="topnav-title">Help Centre</div>
+        </div>
+
+        <div class="topnav-right">
+          <button class="theme-toggle" aria-label="Toggle theme"></button>
+          <div class="dropdown" id="userDropdown">
+            <div class="dropdown-menu" style="right:0;">
+              <a href="settings.html" class="dropdown-item">Settings</a>
+              <a href="help-centre.html" class="dropdown-item">Help Centre</a>
+              <div class="dropdown-divider"></div>
+              <button class="dropdown-item danger" data-action="logout">Sign Out</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- PAGE CONTENT -->
+      <main class="page-content" style="max-width:800px;">
+        
+        <div class="page-header text-center" style="margin-bottom:var(--sp-8);align-items:center;">
+          <div>
+            <h1 class="page-heading">Frequently Asked Questions</h1>
+            <p class="page-subheading">Need quick assistance? Browse our categorised product guides below.</p>
+          </div>
+        </div>
+
+        <!-- SEARCH BAR -->
+        <div class="card card-sm mb-6" style="background:var(--bg-surface);">
+          <div class="search-input">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+            <input type="text" id="faqSearch" placeholder="Search school help topics, timetables, AI tools...">
+          </div>
+        </div>
+
+        <!-- FAQS ACCORDION -->
+        <div class="faq-list animate-fade-in" id="faqList">
+          
+          <div class="faq-item">
+            <div class="faq-question-row">
+              <span>How does StudyVision AI evaluate answers?</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="faq-arrow"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="faq-answer hidden">
+              StudyVision AI scans handwritten documents to convert them into editable digital text. It calculates character accuracy confidence rates. The teacher always remains the final authority for grading and marks entry.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question-row">
+              <span>What happens if there's a Smart Timetable conflict?</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="faq-arrow"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="faq-answer hidden">
+              If two classes or custom study blocks overlap on the same day and time, a warning alert will be displayed on the top of the timetable panel and dashboard view, highlighting the conflicting cards in red.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question-row">
+              <span>Is my chatbot conversation private?</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="faq-arrow"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="faq-answer hidden">
+              Yes, all chat conversations with StudyBuddy AI are private and stored locally. Note that the chatbot is an educational assistant and should not be used as a medical therapist or doctor.
+            </div>
+          </div>
+
+          <div class="faq-item">
+            <div class="faq-question-row">
+              <span>How do I order from the School Store?</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" class="faq-arrow"><polyline points="9 18 15 12 9 6"/></svg>
+            </div>
+            <div class="faq-answer hidden">
+              Go to the School Store page, click "Add to Request" on the books or stationery items, review your request cart in the sidebar, and click "Submit Request". The school store administrators will be notified and approve your request for dispatch.
+            </div>
+          </div>
+
+        </div>
+
+      </main>
+    </div>
+
+  </div>
+
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <script src="../js/core/auth.js"></script>
+  <script src="../js/components/nav.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const session = SBAuth.requireAuth();
+      if (!session) return;
+      SBAuth.injectUserUI(session);
+
+      /* -------------------------------------------------------
+         DYNAMIC SIDEBAR NAVIGATION
+      ------------------------------------------------------- */
+      const sidebarNav = document.getElementById('sidebarNav');
+      if (sidebarNav) {
+        if (session.role === 'student') {
+          sidebarNav.innerHTML = `
+            <div class="sidebar-section-label">Academic Portal</div>
+            <a href="../dashboards/student.html" class="nav-item" data-tooltip="Dashboard">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              <span>Dashboard</span>
+            </a>
+            <a href="academic-records.html" class="nav-item" data-tooltip="Academic Records">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>
+              <span>Academic Records</span>
+            </a>
+            <a href="timetable.html" class="nav-item" data-tooltip="Timetable">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+              <span>Smart Timetable</span>
+            </a>
+            <div class="sidebar-section-label">Self Management</div>
+            <a href="goal-planner.html" class="nav-item" data-tooltip="Goal Planner">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+              <span>Goal Planner</span>
+            </a>
+            <a href="notices.html" class="nav-item" data-tooltip="Digital Notices">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+              <span>Digital Notices</span>
+            </a>
+          `;
+        } else {
+          // Teacher/Admin
+          sidebarNav.innerHTML = `
+            <div class="sidebar-section-label">Academic Portal</div>
+            <a href="../dashboards/${session.role}.html" class="nav-item" data-tooltip="Dashboard">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+              <span>Dashboard</span>
+            </a>
+            <a href="academic-records.html" class="nav-item" data-tooltip="Academic Records">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>
+              <span>Academic Records</span>
+            </a>
+            <a href="notices.html" class="nav-item" data-tooltip="Digital Notices">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+              <span>Digital Notices</span>
+            </a>
+          `;
+        }
+      }
+
+      // Accordion click handlers
+      const faqs = document.querySelectorAll('.faq-item');
+      faqs.forEach(faq => {
+        faq.addEventListener('click', () => {
+          faq.classList.toggle('active');
+          const ans = faq.querySelector('.faq-answer');
+          ans.classList.toggle('hidden');
+        });
+      });
+
+      // Simple local search filter
+      const search = document.getElementById('faqSearch');
+      search.addEventListener('input', () => {
+        const query = search.value.toLowerCase();
+        faqs.forEach(faq => {
+          const qText = faq.querySelector('.faq-question-row').textContent.toLowerCase();
+          const aText = faq.querySelector('.faq-answer').textContent.toLowerCase();
+          if (qText.includes(query) || aText.includes(query)) {
+            faq.style.display = 'block';
+          } else {
+            faq.style.display = 'none';
+          }
+        });
+      });
+    });
+  </script>
+</body>
+</html>

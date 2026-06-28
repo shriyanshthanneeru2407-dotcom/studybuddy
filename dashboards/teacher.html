@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Teacher Dashboard — StudyBuddy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/layouts.css">
+  <link rel="stylesheet" href="../css/pages/dashboard.css">
+  <script src="../js/core/theme.js"></script>
+</head>
+<body>
+
+  <div class="app-shell">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar" aria-label="Main Navigation">
+      <a href="../index.html" class="sidebar-brand">
+        <div class="sidebar-logo">S</div>
+        <span class="sidebar-brand-name">Study<span>Buddy</span></span>
+      </a>
+      
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar collapse">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <nav class="sidebar-nav">
+        <div class="sidebar-section-label">Academic Portal</div>
+        <a href="teacher.html" class="nav-item active" data-tooltip="Dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+          <span>Dashboard</span>
+        </a>
+        <a href="../pages/academic-records.html" class="nav-item" data-tooltip="Academic Records">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>
+          <span>Academic Records</span>
+        </a>
+        <a href="../pages/notices.html" class="nav-item" data-tooltip="Digital Notices">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+          <span>Digital Notices</span>
+        </a>
+
+        <div class="sidebar-section-label">Advanced Tools</div>
+        <a href="../pages/studyvision.html" class="nav-item" data-tooltip="StudyVision AI">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          <span>StudyVision AI</span>
+        </a>
+        <a href="../pages/analytics.html" class="nav-item" data-tooltip="Performance Analytics">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+          <span>Analytics</span>
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-user" id="userDropdownBtn" aria-haspopup="true">
+          <div class="avatar avatar-sm" data-user-initials>PR</div>
+          <div class="sidebar-user-info">
+            <div class="sidebar-user-name" data-user-name>Loading...</div>
+            <div class="sidebar-user-role" data-user-role>Teacher</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content" id="mainContent">
+      
+      <!-- TOP NAV -->
+      <header class="topnav" id="topnav">
+        <div class="topnav-left">
+          <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open navigation drawer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          <div class="topnav-title">Dashboard</div>
+        </div>
+
+        <div class="topnav-right">
+          <button class="theme-toggle" aria-label="Toggle theme"></button>
+          
+          <!-- Notifications -->
+          <div class="dropdown">
+            <button class="notif-btn" id="notifBtn" aria-label="Notifications" aria-haspopup="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+              <span class="notif-count">1</span>
+            </button>
+            <div class="notif-panel" id="notifPanel">
+              <div class="notif-panel-header">
+                <span class="notif-panel-title">Notifications</span>
+              </div>
+              <div class="notif-list">
+                <div class="notif-item unread">
+                  <div class="notif-dot"></div>
+                  <div>
+                    <div class="notif-item-title">New Paper Uploaded</div>
+                    <div class="notif-item-text">A student uploaded an answer sheet to review.</div>
+                    <div class="notif-item-time">30 min ago</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- User menu -->
+          <div class="dropdown" id="userDropdown">
+            <div class="dropdown-menu" style="right:0;">
+              <a href="../pages/settings.html" class="dropdown-item">Settings</a>
+              <a href="../pages/help-centre.html" class="dropdown-item">Help Centre</a>
+              <div class="dropdown-divider"></div>
+              <button class="dropdown-item danger" data-action="logout">Sign Out</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- PAGE CONTENT -->
+      <main class="page-content">
+        
+        <div class="dashboard-title-row">
+          <div>
+            <h1 class="page-heading">Welcome, <span data-user-name>Teacher</span></h1>
+            <p class="page-subheading" id="teacherDateDisplay">Mathematics Department • DPS Delhi</p>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <a href="../pages/studyvision.html" class="btn btn-primary">
+              <span>🔍 StudyVision AI Digitizer</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- STATS GRID -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon blue">🏫</div>
+            <div>
+              <div class="stat-label">Total Classes</div>
+              <div class="stat-value">4</div>
+              <div class="stat-change text-muted">120 Students total</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon green">📊</div>
+            <div>
+              <div class="stat-label">Term Average</div>
+              <div class="stat-value">76.8%</div>
+              <div class="stat-change up">▲ 0.8% from last test</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon amber">📂</div>
+            <div>
+              <div class="stat-label">Submissions</div>
+              <div class="stat-value">28 / 30</div>
+              <div class="stat-change text-muted">Physics Assignment 3</div>
+            </div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-icon red">🤖</div>
+            <div>
+              <div class="stat-label">Pending AI Grading</div>
+              <div class="stat-value">6 Sheets</div>
+              <div class="stat-change text-error">Requires review</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- DASHBOARD GRID -->
+        <div class="dashboard-grid">
+          
+          <!-- Left Column (Classes & Submissions) -->
+          <div class="widget-list">
+            
+            <!-- Classes today -->
+            <div class="card">
+              <h2 class="card-title mb-4">Today's Class Grid</h2>
+              <div class="table-container">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Time</th>
+                      <th>Class / Section</th>
+                      <th>Subject</th>
+                      <th>Attendance</th>
+                      <th>Status</th>
+                    </tr>
+                  </thead>
+                  <tbody id="teacherClassesBody">
+                    <!-- Will render dynamically -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+
+            <!-- Performance Chart -->
+            <div class="card">
+              <div class="chart-widget-header">
+                <div>
+                  <h2 class="card-title">Class Grade Distributions</h2>
+                  <p class="card-subtitle">Comparing Section A vs. Section B averages</p>
+                </div>
+              </div>
+              <div class="chart-container" style="height:220px;">
+                <canvas id="teacherClassChart" data-chart="bar"></canvas>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Right Column (Quick action forms & Digitizer shortcut) -->
+          <div class="widget-list">
+            
+            <!-- Quick notice publish -->
+            <div class="card">
+              <h2 class="card-title mb-4">Quick Publish Notice</h2>
+              <form id="quickNoticeForm" style="display:flex;flex-direction:column;gap:12px;">
+                <div class="form-group">
+                  <label for="noticeTitle" class="form-label">Notice Title</label>
+                  <input type="text" id="noticeTitle" class="form-input" placeholder="e.g. Extra Class Timing" required>
+                </div>
+                <div class="form-group">
+                  <label for="noticeBody" class="form-label">Message Details</label>
+                  <textarea id="noticeBody" class="form-textarea" placeholder="Explain details, assignments, etc..." required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary w-full">Broadcast Memo</button>
+              </form>
+            </div>
+
+            <!-- StudyVision shortcut widget -->
+            <div class="card" style="background:var(--color-navy);color:white;">
+              <h2 class="card-title mb-2" style="color:white;">Digitize Handwritten Papers</h2>
+              <p class="text-sm mb-4" style="color:rgba(255,255,255,0.7);line-height:var(--lh-relaxed);">
+                Upload scanned files of exam papers. AI converts them to digital editable text side-by-side. Add remarks, grades, and export immediately.
+              </p>
+              <a href="../pages/studyvision.html" class="btn btn-success w-full">Open StudyVision Tool</a>
+            </div>
+
+          </div>
+
+        </div>
+
+      </main>
+    </div>
+
+  </div>
+
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <script src="../js/core/auth.js"></script>
+  <script src="../js/components/nav.js"></script>
+  <script src="../js/components/charts.js"></script>
+  <script src="../js/components/toast.js"></script>
+  <script src="../js/pages/dashboard-teacher.js"></script>
+</body>
+</html>

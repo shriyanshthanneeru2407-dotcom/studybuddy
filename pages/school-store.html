@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>School Store — StudyBuddy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/layouts.css">
+  <script src="../js/core/theme.js"></script>
+  <style>
+    /* Store layout styling */
+    .store-layout {
+      display: grid;
+      grid-template-columns: 1fr 300px;
+      gap: var(--sp-6);
+    }
+    
+    .store-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: var(--sp-4);
+    }
+
+    .item-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+    }
+
+    .item-img-placeholder {
+      height: 120px;
+      background: var(--bg-surface-2);
+      border-radius: var(--radius-md);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: var(--text-2xl);
+      margin-bottom: var(--sp-3);
+      border: 1px solid var(--border-color-light);
+    }
+
+    .item-price {
+      font-size: var(--text-sm);
+      font-weight: var(--fw-bold);
+      color: var(--text-primary);
+      margin-top: var(--sp-2);
+    }
+
+    .cart-sticky-panel {
+      position: sticky;
+      top: calc(var(--nav-height) + var(--sp-6));
+      height: fit-content;
+      max-height: calc(100vh - var(--nav-height) - var(--sp-12));
+      overflow-y: auto;
+    }
+
+    .cart-list-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: var(--sp-2) 0;
+      border-bottom: 1px solid var(--border-color-light);
+      font-size: var(--text-xs);
+    }
+
+    .cart-list-item:last-child {
+      border-bottom: none;
+    }
+
+    @media (max-width: 900px) {
+      .store-layout {
+        grid-template-columns: 1fr;
+      }
+      .store-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-shell">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar" aria-label="Main Navigation">
+      <a href="../index.html" class="sidebar-brand">
+        <div class="sidebar-logo">S</div>
+        <span class="sidebar-brand-name">Study<span>Buddy</span></span>
+      </a>
+      
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar collapse">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <nav class="sidebar-nav" id="sidebarNav">
+        <!-- Injected dynamically -->
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-user" id="userDropdownBtn" aria-haspopup="true">
+          <div class="avatar avatar-sm" data-user-initials>--</div>
+          <div class="sidebar-user-info">
+            <div class="sidebar-user-name" data-user-name>Loading...</div>
+            <div class="sidebar-user-role" data-user-role>User</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content" id="mainContent">
+      
+      <!-- TOP NAV -->
+      <header class="topnav" id="topnav">
+        <div class="topnav-left">
+          <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open navigation drawer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          <div class="topnav-title">School Store</div>
+        </div>
+
+        <div class="topnav-right">
+          <button class="theme-toggle" aria-label="Toggle theme"></button>
+          <div class="dropdown" id="userDropdown">
+            <div class="dropdown-menu" style="right:0;">
+              <a href="settings.html" class="dropdown-item">Settings</a>
+              <a href="help-centre.html" class="dropdown-item">Help Centre</a>
+              <div class="dropdown-divider"></div>
+              <button class="dropdown-item danger" data-action="logout">Sign Out</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- PAGE CONTENT -->
+      <main class="page-content">
+        
+        <!-- ADMIN CONTROLS INVENTORY TABS HEADER -->
+        <div class="tabs" id="storeTabs" style="display:none;margin-bottom:var(--sp-6);">
+          <button class="tab-btn active" id="tabCatalogBtn">Browse Store</button>
+          <button class="tab-btn" id="tabAdminInventoryBtn">Manage Stock (Admin Mode)</button>
+        </div>
+
+        <div class="page-header" id="storeHeader">
+          <div>
+            <nav class="breadcrumb" aria-label="Breadcrumbs" id="autoBreadcrumb"></nav>
+            <h1 class="page-heading mt-2">Institution Bookstore & Stationery</h1>
+            <p class="page-subheading">Purchase textbooks, notebooks, geometry boxes, and sports gear directly.</p>
+          </div>
+        </div>
+
+        <!-- STORE BROWSER CONTAINER -->
+        <div class="store-layout" id="catalogView">
+          
+          <!-- Products Catalog -->
+          <div class="widget-list">
+            
+            <!-- Filters -->
+            <div class="card card-sm mb-4" style="background:var(--bg-surface);">
+              <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+                <div class="search-input" style="flex:1;min-width:200px;">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                  <input type="text" id="storeSearch" placeholder="Search catalog items...">
+                </div>
+                
+                <div style="min-width:140px;">
+                  <select id="storeFilter" class="form-select" style="min-height:36px;height:36px;padding-top:4px;padding-bottom:4px;">
+                    <option value="all">All categories</option>
+                    <option value="textbooks">Textbooks</option>
+                    <option value="stationery">Stationery</option>
+                    <option value="sports">Apparel & Gear</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <div class="store-grid" id="storeGrid">
+              <!-- Rendered dynamically -->
+            </div>
+
+          </div>
+
+          <!-- Checkout Cart sticky sidebar -->
+          <div class="cart-sticky-panel">
+            <div class="card">
+              <h2 class="card-title mb-4">Request Cart</h2>
+              
+              <div id="cartEmptyState" style="text-align:center;padding:20px 0;color:var(--text-muted);font-size:var(--text-xs);">
+                Your cart is empty.<br>Click "Add to Cart" to start.
+              </div>
+
+              <div class="widget-list hidden" id="cartContentList" style="gap:4px;">
+                <!-- Cart items render dynamically -->
+                <div id="cartItemsList"></div>
+                <hr class="divider">
+                <div class="flex justify-between fw-bold mb-4" style="font-size:var(--text-sm);">
+                  <span>Total Cost</span>
+                  <span id="cartTotalCost">₹0.00</span>
+                </div>
+                <button class="btn btn-primary w-full" id="placeOrderRequestBtn">Submit Request</button>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <!-- ADMIN STOCK MANAGER VIEW (HIDDEN INITIALLY) -->
+        <div class="widget-list hidden" id="adminInventoryView">
+          <div class="card">
+            <div class="card-header">
+              <h2 class="card-title">Product Stock Management</h2>
+              <button class="btn btn-primary btn-sm" id="addNewProductBtn">Add Catalog Product</button>
+            </div>
+            
+            <div class="table-container">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>Product Name</th>
+                    <th>Category</th>
+                    <th>Price (₹)</th>
+                    <th>Inventory Status</th>
+                    <th class="text-right">Actions</th>
+                  </tr>
+                </thead>
+                <tbody id="inventoryTableBody">
+                  <!-- Rendered dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+      </main>
+    </div>
+
+  </div>
+
+  <!-- ADD PRODUCT MODAL FOR ADMINS -->
+  <div class="modal-overlay" id="productModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal" style="max-width:400px;">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modalTitle">Add Store Product</h2>
+        <button class="btn-ghost" id="closeProductModalBtn" style="padding:4px;border-radius:50%;display:flex;align-items:center;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <form id="productForm" novalidate>
+        <div class="modal-body" style="display:flex;flex-direction:column;gap:16px;">
+          <div class="form-group">
+            <label for="prodName" class="form-label">Product Name<span class="required">*</span></label>
+            <input type="text" id="prodName" class="form-input" required>
+            <span class="form-error" id="prodNameError"></span>
+          </div>
+
+          <div class="grid grid-2 gap-4">
+            <div class="form-group">
+              <label for="prodPrice" class="form-label">Price (₹)<span class="required">*</span></label>
+              <input type="number" id="prodPrice" class="form-input" required>
+            </div>
+            <div class="form-group">
+              <label for="prodCategory" class="form-label">Category</label>
+              <select id="prodCategory" class="form-select">
+                <option value="textbooks">Textbooks</option>
+                <option value="stationery">Stationery</option>
+                <option value="sports">Apparel & Gear</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="prodIcon" class="form-label">Item Emoji Icon</label>
+            <input type="text" id="prodIcon" class="form-input" value="📚">
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" id="cancelProductModalBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary">Add to Catalog</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <script src="../js/core/auth.js"></script>
+  <script src="../js/components/nav.js"></script>
+  <script src="../js/components/toast.js"></script>
+  <script src="../js/pages/store.js"></script>
+</body>
+</html>

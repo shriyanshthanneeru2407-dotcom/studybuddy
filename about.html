@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>About Us — StudyBuddy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layouts.css">
+  <link rel="stylesheet" href="css/pages/home.css">
+  <script src="js/core/theme.js"></script>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <header>
+    <nav class="public-nav" role="navigation" aria-label="Main navigation">
+      <div class="public-nav-inner">
+        <a href="index.html" class="nav-logo">
+          <div class="nav-logo-mark">S</div>
+          <span class="nav-logo-text">Study<span>Buddy</span></span>
+        </a>
+        <div class="public-nav-links" role="menubar">
+          <a href="index.html"    class="public-nav-link" role="menuitem">Home</a>
+          <a href="about.html"   class="public-nav-link active" role="menuitem">About</a>
+          <a href="features.html"class="public-nav-link" role="menuitem">Features</a>
+          <a href="pages/teacher-profiles.html" class="public-nav-link" role="menuitem">Teachers</a>
+          <a href="pages/help-centre.html"      class="public-nav-link" role="menuitem">Help</a>
+          <a href="pages/contact.html"          class="public-nav-link" role="menuitem">Contact</a>
+        </div>
+        <div class="public-nav-actions">
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+          <a href="login.html"    class="btn btn-ghost btn-sm">Sign In</a>
+          <a href="register.html" class="btn btn-primary btn-sm">Get Started</a>
+          <button class="mobile-menu-btn" id="publicMobileMenuBtn" aria-label="Open menu" aria-expanded="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="public-nav-mobile" id="publicMobileNav" role="menu">
+        <a href="index.html"    class="public-nav-link" role="menuitem">Home</a>
+        <a href="about.html"   class="public-nav-link" role="menuitem">About</a>
+        <a href="features.html"class="public-nav-link" role="menuitem">Features</a>
+        <a href="pages/teacher-profiles.html" class="public-nav-link" role="menuitem">Teachers</a>
+        <a href="pages/help-centre.html"      class="public-nav-link" role="menuitem">Help</a>
+        <a href="pages/contact.html"          class="public-nav-link" role="menuitem">Contact</a>
+        <div style="display:flex;gap:8px;padding-top:8px;">
+          <a href="login.html"    class="btn btn-surface btn-sm" style="flex:1;justify-content:center;">Sign In</a>
+          <a href="register.html" class="btn btn-primary btn-sm" style="flex:1;justify-content:center;">Get Started</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="public-page">
+    <section class="py-16 bg-surface">
+      <div class="container text-center" style="max-width:800px;">
+        <p class="section-label">Our Mission</p>
+        <h1 class="section-title">Designed for Classrooms. Built for Scale.</h1>
+        <p class="section-subtitle" style="margin:0 auto var(--sp-8);">
+          StudyBuddy is built by teachers, students, and technologists with a simple goal: to make academic administration efficient and personal learning intuitive, without unnecessary complexity.
+        </p>
+        <hr class="divider">
+      </div>
+    </section>
+
+    <section class="py-12">
+      <div class="container" style="max-width:960px;">
+        <div class="grid grid-2 gap-8 items-center">
+          <div>
+            <h2 class="text-2xl fw-bold text-primary mb-4">A Modern School Companion</h2>
+            <p class="text-secondary mb-4 lh-relaxed">
+              We started StudyBuddy because we saw classrooms struggling with disconnected apps. Attendance was on one spreadsheet, timetables on another, notices on a wall board, and digital grading somewhere else.
+            </p>
+            <p class="text-secondary lh-relaxed">
+              StudyBuddy pulls everything into a unified workspace. By organizing dashboards around user roles, we give students, teachers, and school leaders exactly what they need — and nothing they don't.
+            </p>
+          </div>
+          <div class="card card-lg" style="background:var(--bg-surface-2);border-color:var(--border-color);">
+            <h3 class="text-lg fw-bold mb-4">Our Values</h3>
+            <ul style="display:flex;flex-direction:column;gap:12px;">
+              <li><strong>Usability first:</strong> Accessible contrast, simple forms, readable tables.</li>
+              <li><strong>Academic Focus:</strong> High utility, low distraction, clean layouts.</li>
+              <li><strong>Human Centred AI:</strong> StudyVision AI processes documents, but teachers always grade.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand-name">Study<span>Buddy</span></div>
+          <p class="footer-tagline">An AI-powered academic management platform for the modern school.</p>
+        </div>
+        <div>
+          <h3 class="footer-col-title">Platform</h3>
+          <nav class="footer-links">
+            <a href="features.html">Features</a>
+            <a href="dashboards/student.html">Student Dashboard</a>
+            <a href="dashboards/teacher.html">Teacher Dashboard</a>
+            <a href="dashboards/admin.html">Admin Dashboard</a>
+          </nav>
+        </div>
+        <div>
+          <h3 class="footer-col-title">Company</h3>
+          <nav class="footer-links">
+            <a href="about.html">About Us</a>
+            <a href="pages/contact.html">Contact</a>
+            <a href="pages/help-centre.html">Help Centre</a>
+          </nav>
+        </div>
+        <div>
+          <h3 class="footer-col-title">Legal</h3>
+          <nav class="footer-links">
+            <a href="pages/privacy-policy.html">Privacy Policy</a>
+            <a href="pages/terms-of-service.html">Terms of Service</a>
+          </nav>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2024 StudyBuddy. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/components/nav.js"></script>
+</body>
+</html>

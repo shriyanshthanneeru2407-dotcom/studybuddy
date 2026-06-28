@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Features — StudyBuddy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layouts.css">
+  <link rel="stylesheet" href="css/pages/home.css">
+  <script src="js/core/theme.js"></script>
+</head>
+<body>
+
+  <!-- NAVIGATION -->
+  <header>
+    <nav class="public-nav" role="navigation" aria-label="Main navigation">
+      <div class="public-nav-inner">
+        <a href="index.html" class="nav-logo">
+          <div class="nav-logo-mark">S</div>
+          <span class="nav-logo-text">Study<span>Buddy</span></span>
+        </a>
+        <div class="public-nav-links" role="menubar">
+          <a href="index.html"    class="public-nav-link" role="menuitem">Home</a>
+          <a href="about.html"   class="public-nav-link" role="menuitem">About</a>
+          <a href="features.html"class="public-nav-link active" role="menuitem">Features</a>
+          <a href="pages/teacher-profiles.html" class="public-nav-link" role="menuitem">Teachers</a>
+          <a href="pages/help-centre.html"      class="public-nav-link" role="menuitem">Help</a>
+          <a href="pages/contact.html"          class="public-nav-link" role="menuitem">Contact</a>
+        </div>
+        <div class="public-nav-actions">
+          <button class="theme-toggle" id="themeToggle" aria-label="Toggle theme"></button>
+          <a href="login.html"    class="btn btn-ghost btn-sm">Sign In</a>
+          <a href="register.html" class="btn btn-primary btn-sm">Get Started</a>
+          <button class="mobile-menu-btn" id="publicMobileMenuBtn" aria-label="Open menu" aria-expanded="false">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+        </div>
+      </div>
+      <div class="public-nav-mobile" id="publicMobileNav" role="menu">
+        <a href="index.html"    class="public-nav-link" role="menuitem">Home</a>
+        <a href="about.html"   class="public-nav-link" role="menuitem">About</a>
+        <a href="features.html"class="public-nav-link" role="menuitem">Features</a>
+        <a href="pages/teacher-profiles.html" class="public-nav-link" role="menuitem">Teachers</a>
+        <a href="pages/help-centre.html"      class="public-nav-link" role="menuitem">Help</a>
+        <a href="pages/contact.html"          class="public-nav-link" role="menuitem">Contact</a>
+        <div style="display:flex;gap:8px;padding-top:8px;">
+          <a href="login.html"    class="btn btn-surface btn-sm" style="flex:1;justify-content:center;">Sign In</a>
+          <a href="register.html" class="btn btn-primary btn-sm" style="flex:1;justify-content:center;">Get Started</a>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <main class="public-page">
+    <section class="py-16 bg-surface">
+      <div class="container text-center">
+        <p class="section-label">Capabilities</p>
+        <h1 class="section-title">Designed for Clean Educational Operations</h1>
+        <p class="section-subtitle" style="margin: 0 auto;">
+          An academic workspace configured precisely for different roles. Simple, clean design optimized for readability and daily usage.
+        </p>
+      </div>
+    </section>
+
+    <!-- Detailed Feature List Section -->
+    <section class="py-16">
+      <div class="container" style="max-width:960px;">
+        
+        <!-- Students -->
+        <div class="mb-12">
+          <h2 class="text-2xl fw-bold text-primary mb-6" style="display:flex;align-items:center;gap:12px;">
+            <span class="badge badge-blue">Student Features</span>
+          </h2>
+          <div class="grid grid-2 gap-6">
+            <div class="card card-sm">
+              <h3 class="fw-bold mb-2">Smart Timetable</h3>
+              <p class="text-secondary text-sm lh-relaxed">Students can check their day-to-day schedule, organize personal study blocks, and configure conflict detection automatically.</p>
+            </div>
+            <div class="card card-sm">
+              <h3 class="fw-bold mb-2">Goal Planner</h3>
+              <p class="text-secondary text-sm lh-relaxed">Establish goals, set priority ranks, add deadline timers, and track completion percentages as steps are checked off.</p>
+            </div>
+            <div class="card card-sm">
+              <h3 class="fw-bold mb-2">StudyBuddy AI</h3>
+              <p class="text-secondary text-sm lh-relaxed">Personal chatbot assistant providing productivity hacks, active recall advice, study planning schedules, and academic Q&A.</p>
+            </div>
+            <div class="card card-sm">
+              <h3 class="fw-bold mb-2">School Store</h3>
+              <p class="text-secondary text-sm lh-relaxed">Browse school books, uniforms, stationery, add to cart, and send requests directly to the administrator inventory team.</p>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- Teachers -->
+        <div class="mb-12 mt-12">
+          <h2 class="text-2xl fw-bold text-primary mb-6" style="display:flex;align-items:center;gap:12px;">
+            <span class="badge badge-emerald">Teacher Features</span>
+          </h2>
+          <div class="grid grid-2 gap-6">
+            <div class="card card-sm">
+              <h3 class="fw-bold mb-2">StudyVision AI</h3>
+              <p class="text-secondary text-sm lh-relaxed">A specialized split-screen digitizer for handwritten papers, complete with drawing annotation tools, commentary layers, and export PDF capacity.</p>
+            </div>
+            <div class="card card-sm">
+              <h3 class="fw-bold mb-2">Digital Notices</h3>
+              <p class="text-secondary text-sm lh-relaxed">Publish school-wide announcements, pin critical memos, schedule alerts in advance, and attach files for immediate class access.</p>
+            </div>
+            <div class="card card-sm">
+              <h3 class="fw-bold mb-2">Academic Records</h3>
+              <p class="text-secondary text-sm lh-relaxed">Full directory controls to add, search, filter, edit, sort, and export student performance marks and history.</p>
+            </div>
+            <div class="card card-sm">
+              <h3 class="fw-bold mb-2">Attendance Matrix</h3>
+              <p class="text-secondary text-sm lh-relaxed">Daily check-in dashboards to track student attendance records with visual graph indicators showing compliance states.</p>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- Administrators -->
+        <div class="mt-12">
+          <h2 class="text-2xl fw-bold text-primary mb-6" style="display:flex;align-items:center;gap:12px;">
+            <span class="badge badge-navy">Administrator Features</span>
+          </h2>
+          <div class="grid grid-2 gap-6">
+            <div class="card card-sm">
+              <h3 class="fw-bold mb-2">User Directory Operations</h3>
+              <p class="text-secondary text-sm lh-relaxed">Role assignment controls to manage security clearance profiles, register new profiles, and monitor security access states.</p>
+            </div>
+            <div class="card card-sm">
+              <h3 class="fw-bold mb-2">Platform Analytics</h3>
+              <p class="text-secondary text-sm lh-relaxed">Detailed graph logs showing overall attendance metrics, class average scores, notice reading stats, and system utilization levels.</p>
+            </div>
+            <div class="card card-sm">
+              <h3 class="fw-bold mb-2">Inventory Management</h3>
+              <p class="text-secondary text-sm lh-relaxed">Review request queues from the student school store catalog, adjust stock quantities, and process delivery states.</p>
+            </div>
+            <div class="card card-sm">
+              <h3 class="fw-bold mb-2">Database controls</h3>
+              <p class="text-secondary text-sm lh-relaxed">System-wide backup capabilities, audit log monitors, and settings controls for academic years and parameters.</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" role="contentinfo">
+    <div class="footer-inner">
+      <div class="footer-grid">
+        <div>
+          <div class="footer-brand-name">Study<span>Buddy</span></div>
+          <p class="footer-tagline">An AI-powered academic management platform for the modern school.</p>
+        </div>
+        <div>
+          <h3 class="footer-col-title">Platform</h3>
+          <nav class="footer-links">
+            <a href="features.html">Features</a>
+            <a href="dashboards/student.html">Student Dashboard</a>
+            <a href="dashboards/teacher.html">Teacher Dashboard</a>
+            <a href="dashboards/admin.html">Admin Dashboard</a>
+          </nav>
+        </div>
+        <div>
+          <h3 class="footer-col-title">Company</h3>
+          <nav class="footer-links">
+            <a href="about.html">About Us</a>
+            <a href="pages/contact.html">Contact</a>
+            <a href="pages/help-centre.html">Help Centre</a>
+          </nav>
+        </div>
+        <div>
+          <h3 class="footer-col-title">Legal</h3>
+          <nav class="footer-links">
+            <a href="pages/privacy-policy.html">Privacy Policy</a>
+            <a href="pages/terms-of-service.html">Terms of Service</a>
+          </nav>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p class="footer-copyright">© 2024 StudyBuddy. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/components/nav.js"></script>
+</body>
+</html>

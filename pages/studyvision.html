@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>StudyVision AI — StudyBuddy</title>
+  <!-- Handwritten Font for paper simulation -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/layouts.css">
+  <script src="../js/core/theme.js"></script>
+  <style>
+    /* Split screen styling for StudyVision AI */
+    .studyvision-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: var(--sp-6);
+      height: calc(100vh - var(--nav-height) - var(--sp-12) - 80px);
+      min-height: 520px;
+    }
+    
+    .paper-panel {
+      background: var(--bg-surface);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-xl);
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      overflow: hidden;
+    }
+
+    .paper-panel-header {
+      padding: var(--sp-3) var(--sp-4);
+      background: var(--bg-surface-2);
+      border-bottom: 1px solid var(--border-color);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .paper-scroll-area {
+      flex: 1;
+      overflow-y: auto;
+      padding: var(--sp-6);
+      position: relative;
+    }
+
+    /* Handwriting paper mockup */
+    .handwritten-paper {
+      background: #FFFDF0; /* Lined notebook yellow */
+      color: #1E293B;
+      font-family: 'Caveat', cursive;
+      font-size: var(--text-xl);
+      line-height: var(--sp-8);
+      padding: var(--sp-8);
+      border-radius: var(--radius-md);
+      box-shadow: var(--shadow-sm);
+      min-height: 100%;
+      background-image: linear-gradient(#e2e8f0 1px, transparent 1px);
+      background-size: 100% 32px;
+      position: relative;
+      border-left: 2px solid #FCA5A5; /* Red margin line */
+      padding-left: var(--sp-12);
+    }
+
+    .digital-editor {
+      width: 100%;
+      height: 100%;
+      border: none;
+      background: transparent;
+      resize: none;
+      font-family: var(--font-sans);
+      font-size: var(--text-sm);
+      line-height: var(--lh-relaxed);
+      color: var(--text-primary);
+      outline: none;
+    }
+
+    /* Highlight annotations */
+    .annotation-highlight {
+      background-color: rgba(253, 224, 71, 0.4);
+      border-bottom: 2px dashed #EAB308;
+      cursor: pointer;
+    }
+
+    .sidebar-comments-panel {
+      padding: var(--sp-4);
+      border-top: 1px solid var(--border-color);
+      background: var(--bg-surface-2);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    @media (max-width: 900px) {
+      .studyvision-container {
+        grid-template-columns: 1fr;
+        height: auto;
+      }
+      .paper-panel {
+        height: 480px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-shell">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar" aria-label="Main Navigation">
+      <a href="../index.html" class="sidebar-brand">
+        <div class="sidebar-logo">S</div>
+        <span class="sidebar-brand-name">Study<span>Buddy</span></span>
+      </a>
+      
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar collapse">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <nav class="sidebar-nav" id="sidebarNav">
+        <!-- Injected dynamically -->
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-user" id="userDropdownBtn" aria-haspopup="true">
+          <div class="avatar avatar-sm" data-user-initials>--</div>
+          <div class="sidebar-user-info">
+            <div class="sidebar-user-name" data-user-name>Loading...</div>
+            <div class="sidebar-user-role" data-user-role>User</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content" id="mainContent">
+      
+      <!-- TOP NAV -->
+      <header class="topnav" id="topnav">
+        <div class="topnav-left">
+          <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open navigation drawer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          <div class="topnav-title">StudyVision AI</div>
+        </div>
+
+        <div class="topnav-right">
+          <button class="theme-toggle" aria-label="Toggle theme"></button>
+          <div class="dropdown" id="userDropdown">
+            <div class="dropdown-menu" style="right:0;">
+              <a href="settings.html" class="dropdown-item">Settings</a>
+              <a href="help-centre.html" class="dropdown-item">Help Centre</a>
+              <div class="dropdown-divider"></div>
+              <button class="dropdown-item danger" data-action="logout">Sign Out</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- PAGE CONTENT -->
+      <main class="page-content">
+        
+        <div class="page-header" style="margin-bottom: var(--sp-4);">
+          <div>
+            <nav class="breadcrumb" aria-label="Breadcrumbs" id="autoBreadcrumb"></nav>
+            <h1 class="page-heading mt-2">AI Answer Sheet Evaluation</h1>
+            <p class="page-subheading">Upload handwritten papers. Review converted text side-by-side. Annotate remarks. Never automated.</p>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-secondary" id="simulateUploadBtn">
+              <span>📂 Scanned Upload</span>
+            </button>
+            <button class="btn btn-primary" id="exportPdfBtn">
+              <span>📄 Export Annotated PDF</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- SPLIT PANEL VIEW -->
+        <div class="studyvision-container">
+          
+          <!-- LEFT PANEL (ORIGINAL SCAN MOCK) -->
+          <div class="paper-panel">
+            <div class="paper-panel-header">
+              <span class="text-sm fw-bold text-secondary">Original Scanned Sheet</span>
+              <span class="badge badge-navy">Student: Arjun Mehta</span>
+            </div>
+            
+            <div class="paper-scroll-area" style="background:#f8fafc;">
+              <div class="handwritten-paper" id="handwrittenPaper">
+                Q1. Explain Newton's Second Law of Motion.
+                
+                Newton's Second Law of Motion states that the rate of change of momentum of a body is directly proportional to the applied force and takes place in the direction in which the force acts.
+                
+                F = ma, where F is force, m is mass of the object, and a is acceleration.
+                
+                momentum is mass multiplied by velocity.
+              </div>
+            </div>
+          </div>
+
+          <!-- RIGHT PANEL (DIGITIZED TEXT EDITOR) -->
+          <div class="paper-panel">
+            <div class="paper-panel-header">
+              <div class="flex items-center gap-2">
+                <span class="text-sm fw-bold text-secondary">Digitized Editable Text</span>
+                <span class="badge badge-green" id="confidenceBadge">94% Confidence</span>
+              </div>
+              <div style="display:flex;gap:6px;">
+                <button class="btn btn-ghost btn-sm" id="btnHighlight" title="Highlight text" style="padding:4px;">🖍️ Highlight</button>
+                <button class="btn btn-ghost btn-sm" id="btnComment" title="Add comment" style="padding:4px;">💬 Comment</button>
+              </div>
+            </div>
+            
+            <div class="paper-scroll-area">
+              <textarea class="digital-editor" id="digitalEditor" aria-label="Digitized text details">
+Q1. Explain Newton's Second Law of Motion.
+
+Newton's Second Law of Motion states that the rate of change of momentum of a body is directly proportional to the applied force and takes place in the direction in which the force acts.
+
+F = ma, where F is force, m is mass of the object, and a is acceleration.
+
+momentum is mass multiplied by velocity.</textarea>
+            </div>
+
+            <!-- TEACHER GRADING INTERFACE -->
+            <div class="sidebar-comments-panel">
+              <div style="display:grid;grid-template-columns:1fr 120px;gap:12px;align-items:end;">
+                <div class="form-group">
+                  <label for="evaluationRemarks" class="form-label">Grading Comments & Remarks</label>
+                  <input type="text" id="evaluationRemarks" class="form-input" placeholder="Excellent physics definition. Well structured.">
+                </div>
+                <div class="form-group">
+                  <label for="evaluationMarks" class="form-label">Marks (Max 10)</label>
+                  <input type="number" id="evaluationMarks" class="form-input" placeholder="Marks" value="9" min="0" max="10">
+                </div>
+              </div>
+              <button class="btn btn-success w-full" id="saveGradesBtn">Save Assessment & Sync</button>
+            </div>
+
+          </div>
+
+        </div>
+
+      </main>
+    </div>
+
+  </div>
+
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <script src="../js/core/auth.js"></script>
+  <script src="../js/components/nav.js"></script>
+  <script src="../js/components/toast.js"></script>
+  <script src="../js/pages/studyvision.js"></script>
+</body>
+</html>

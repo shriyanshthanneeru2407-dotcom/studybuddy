@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Create Account — StudyBuddy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/design-system.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/layouts.css">
+  <link rel="stylesheet" href="css/pages/auth.css">
+  <script src="js/core/theme.js"></script>
+</head>
+<body>
+
+  <div class="auth-page">
+    
+    <!-- Left panel (Form) -->
+    <div class="auth-panel">
+      <div class="auth-form-container">
+        
+        <!-- Logo -->
+        <a href="index.html" class="auth-logo" aria-label="StudyBuddy home">
+          <div class="nav-logo-mark">S</div>
+          <span class="nav-logo-text">Study<span>Buddy</span></span>
+        </a>
+
+        <!-- Header -->
+        <div class="auth-header">
+          <h1 class="auth-title">Get started</h1>
+          <p class="auth-subtitle">Already have an account? <a href="login.html">Sign in</a></p>
+        </div>
+
+        <!-- Social signups -->
+        <div class="oauth-buttons">
+          <button type="button" class="oauth-btn google-btn" id="googleSignUpBtn">
+            <!-- Google Icon SVG -->
+            <svg viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg">
+              <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+              <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+              <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.06H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.94l2.85-2.22.81-.63z" fill="#FBBC05"/>
+              <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.06l3.66 2.84c.87-2.6 3.3-4.52 6.16-4.52z" fill="#EA4335"/>
+            </svg>
+            Sign up with Google
+          </button>
+          
+          <button type="button" class="oauth-btn apple-btn" id="appleSignUpBtn">
+            <!-- Apple Icon SVG -->
+            <svg viewBox="0 0 24 24" width="18" height="18" xmlns="http://www.w3.org/2000/svg" fill="currentColor">
+              <path d="M17.05 20.28c-.98.95-2.05 1.88-3.08 1.88-1.04 0-1.37-.62-2.56-.62-1.18 0-1.55.61-2.54.63-1.02.02-2.23-1.01-3.23-1.95-2.03-1.92-3.59-5.41-3.59-8.68 0-5.18 3.42-7.92 6.8-7.92 1.06 0 2.06.39 2.73.63.67.24 1.7.63 2.37.63.67 0 1.5-.4 2.5-.63 1.05-.24 2.45-.04 3.39.85-5.91 2.21-4.96 10.05.9 12.58-.57 1.48-1.36 2.98-2.92 4.45zm-3.11-17.06c1.23-1.46 2.05-3.5 1.82-5.54-1.78.07-3.94 1.18-5.22 2.65-1.1 1.25-2.06 3.33-1.8 5.32 1.98.15 4-.97 5.2-2.43z"/>
+            </svg>
+            Sign up with Apple
+          </button>
+        </div>
+
+        <div class="auth-divider">Or register with email</div>
+
+        <!-- Form -->
+        <form class="auth-form" id="registerForm" novalidate>
+          <!-- Role selector -->
+          <div class="form-group">
+            <span class="form-label">I want to register as<span class="required">*</span></span>
+            <div class="role-selector">
+              <div class="role-option selected" data-role="student" tabindex="0" role="radio" aria-checked="true" aria-label="Student">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 3L1 9l11 6 9-4.91V17h2V9L12 3zM5.89 12.5L12 15.83l6.11-3.33L12 9.17 5.89 12.5z"/></svg>
+                <span class="role-option-label">Student</span>
+              </div>
+              <div class="role-option" data-role="teacher" tabindex="0" role="radio" aria-checked="false" aria-label="Teacher">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg>
+                <span class="role-option-label">Teacher</span>
+              </div>
+              <div class="role-option" data-role="admin" tabindex="0" role="radio" aria-checked="false" aria-label="Administrator">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                <span class="role-option-label">Admin</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Name -->
+          <div class="form-group">
+            <label for="name" class="form-label">Full Name<span class="required">*</span></label>
+            <div class="input-group">
+              <span class="input-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+              </span>
+              <input type="text" id="name" class="form-input" placeholder="e.g. Arjun Mehta" required autocomplete="name">
+            </div>
+            <span class="form-error" id="nameError"></span>
+          </div>
+
+          <!-- Email -->
+          <div class="form-group">
+            <label for="email" class="form-label">School Email Address<span class="required">*</span></label>
+            <div class="input-group">
+              <span class="input-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+              </span>
+              <input type="email" id="email" class="form-input" placeholder="you@studybuddy.edu" required autocomplete="email">
+            </div>
+            <span class="form-error" id="emailError"></span>
+          </div>
+
+          <!-- School Name -->
+          <div class="form-group">
+            <label for="school" class="form-label">School / Institution Name</label>
+            <div class="input-group">
+              <span class="input-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 2 2 3 6 3s6-1 6-3v-5"/></svg>
+              </span>
+              <input type="text" id="school" class="form-input" placeholder="e.g. Delhi Public School">
+            </div>
+          </div>
+
+          <!-- Password -->
+          <div class="form-group">
+            <label for="password" class="form-label">Password<span class="required">*</span></label>
+            <div class="input-group">
+              <span class="input-icon">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              </span>
+              <input type="password" id="password" class="form-input" placeholder="Min. 8 characters" required autocomplete="new-password">
+              <span class="input-suffix" id="togglePasswordBtn" aria-label="Toggle password visibility">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16" id="eyeIcon"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+              </span>
+            </div>
+            <span class="form-error" id="passwordError"></span>
+          </div>
+
+          <!-- Agreement -->
+          <label class="check-group mt-2">
+            <input type="checkbox" id="agreeTerms" required>
+            <span class="check-label">I agree to the <a href="pages/terms-of-service.html">Terms of Service</a> and <a href="pages/privacy-policy.html">Privacy Policy</a></span>
+          </label>
+          <span class="form-error" id="agreeTermsError"></span>
+
+          <!-- Alert -->
+          <div class="alert alert-error hidden" id="authAlert" role="alert">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+            <span id="authAlertMsg"></span>
+          </div>
+
+          <!-- Submit -->
+          <button type="submit" class="btn btn-primary w-full" id="submitBtn">Create Account</button>
+        </form>
+
+        <!-- Footer -->
+        <div class="auth-footer">
+          Already registered? <a href="login.html">Sign in here</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right panel (Visual) -->
+    <div class="auth-panel-visual">
+      <div class="auth-visual-pattern"></div>
+      <div class="auth-visual-content">
+        <h2 class="auth-visual-title">Welcome to India's Smartest Academic Platform</h2>
+        <p class="auth-visual-text">StudyBuddy helps classrooms run smoother, grades stay organized, and students stay on track with smart tools built just for you.</p>
+        
+        <div class="auth-visual-stats">
+          <div class="auth-stat">
+            <div class="auth-stat-value">50k+</div>
+            <div class="auth-stat-label">Students</div>
+          </div>
+          <div class="auth-stat">
+            <div class="auth-stat-value">3k+</div>
+            <div class="auth-stat-label">Teachers</div>
+          </div>
+          <div class="auth-stat">
+            <div class="auth-stat-value">98%</div>
+            <div class="auth-stat-label">Adoption</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/core/auth.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Check if user is already logged in
+      const session = SBAuth.getSession();
+      if (session) {
+        SBAuth.redirectToDashboard(true);
+        return;
+      }
+
+      const roleOptions = document.querySelectorAll('.role-option');
+      let selectedRole = 'student';
+
+      // Role selection
+      roleOptions.forEach(opt => {
+        opt.addEventListener('click', () => {
+          roleOptions.forEach(o => {
+            o.classList.remove('selected');
+            o.setAttribute('aria-checked', 'false');
+          });
+          opt.classList.add('selected');
+          opt.setAttribute('aria-checked', 'true');
+          selectedRole = opt.getAttribute('data-role');
+        });
+
+        // Keydown support
+        opt.addEventListener('keydown', (e) => {
+          if (e.key === ' ' || e.key === 'Enter') {
+            e.preventDefault();
+            opt.click();
+          }
+        });
+      });
+
+      // Toggle password
+      const togglePasswordBtn = document.getElementById('togglePasswordBtn');
+      const passwordInput = document.getElementById('password');
+      const eyeIcon = document.getElementById('eyeIcon');
+      
+      togglePasswordBtn.addEventListener('click', () => {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        if (type === 'text') {
+          eyeIcon.innerHTML = `<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><line x1="1" y1="1" x2="23" y2="23"/>`;
+        } else {
+          eyeIcon.innerHTML = `<path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>`;
+        }
+      });
+
+      // Form submission
+      const form = document.getElementById('registerForm');
+      const authAlert = document.getElementById('authAlert');
+      const authAlertMsg = document.getElementById('authAlertMsg');
+
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        authAlert.classList.add('hidden');
+
+        const name = document.getElementById('name').value.trim();
+        const email = document.getElementById('email').value.trim();
+        const password = document.getElementById('password').value;
+        const school = document.getElementById('school').value.trim();
+        const agreeTerms = document.getElementById('agreeTerms').checked;
+
+        let hasError = false;
+
+        if (!name) {
+          document.getElementById('nameError').textContent = 'Name is required';
+          hasError = true;
+        } else {
+          document.getElementById('nameError').textContent = '';
+        }
+
+        if (!email) {
+          document.getElementById('emailError').textContent = 'Email is required';
+          hasError = true;
+        } else {
+          document.getElementById('emailError').textContent = '';
+        }
+
+        if (!password || password.length < 8) {
+          document.getElementById('passwordError').textContent = 'Password must be at least 8 characters';
+          hasError = true;
+        } else {
+          document.getElementById('passwordError').textContent = '';
+        }
+
+        if (!agreeTerms) {
+          document.getElementById('agreeTermsError').textContent = 'You must agree to the Terms & Privacy Policy';
+          hasError = true;
+        } else {
+          document.getElementById('agreeTermsError').textContent = '';
+        }
+
+        if (hasError) return;
+
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.classList.add('loading');
+
+        setTimeout(() => {
+          const res = SBAuth.register({ name, email, password, role: selectedRole, school });
+          submitBtn.classList.remove('loading');
+
+          if (res.success) {
+            SBAuth.redirectToDashboard(true);
+          } else {
+            authAlertMsg.textContent = res.error;
+            authAlert.classList.remove('hidden');
+          }
+        }, 800);
+      });
+
+      // OAuth simulation
+      const handleSocial = (provider) => {
+        const res = SBAuth.socialLogin(provider, selectedRole);
+        if (res.success) {
+          SBAuth.redirectToDashboard(true);
+        }
+      };
+
+      document.getElementById('googleSignUpBtn').addEventListener('click', () => handleSocial('Google'));
+      document.getElementById('appleSignUpBtn').addEventListener('click', () => handleSocial('Apple'));
+    });
+  </script>
+</body>
+</html>

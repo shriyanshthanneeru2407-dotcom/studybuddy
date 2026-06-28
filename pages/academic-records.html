@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Academic Records — StudyBuddy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/layouts.css">
+  <script src="../js/core/theme.js"></script>
+</head>
+<body>
+
+  <div class="app-shell">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar" aria-label="Main Navigation">
+      <a href="../index.html" class="sidebar-brand">
+        <div class="sidebar-logo">S</div>
+        <span class="sidebar-brand-name">Study<span>Buddy</span></span>
+      </a>
+      
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar collapse">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <nav class="sidebar-nav" id="sidebarNav">
+        <!-- Sidebar content will be injected or modified by javascript role check -->
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-user" id="userDropdownBtn" aria-haspopup="true">
+          <div class="avatar avatar-sm" data-user-initials>--</div>
+          <div class="sidebar-user-info">
+            <div class="sidebar-user-name" data-user-name>Loading...</div>
+            <div class="sidebar-user-role" data-user-role>User</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content" id="mainContent">
+      
+      <!-- TOP NAV -->
+      <header class="topnav" id="topnav">
+        <div class="topnav-left">
+          <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open navigation drawer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          <div class="topnav-title">Academic Records</div>
+        </div>
+
+        <div class="topnav-right">
+          <button class="theme-toggle" aria-label="Toggle theme"></button>
+          <div class="dropdown" id="userDropdown">
+            <div class="dropdown-menu" style="right:0;">
+              <a href="settings.html" class="dropdown-item">Settings</a>
+              <a href="help-centre.html" class="dropdown-item">Help Centre</a>
+              <div class="dropdown-divider"></div>
+              <button class="dropdown-item danger" data-action="logout">Sign Out</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- PAGE CONTENT -->
+      <main class="page-content">
+        
+        <div class="page-header">
+          <div>
+            <nav class="breadcrumb" aria-label="Breadcrumbs" id="autoBreadcrumb"></nav>
+            <h1 class="page-heading mt-2">Academic Directory</h1>
+            <p class="page-subheading">View, manage, and update student performance summaries and details.</p>
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button class="btn btn-secondary btn-icon btn-sm" id="exportCsvBtn" title="Export CSV" aria-label="Export records as CSV">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="16" height="16"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            </button>
+            <button class="btn btn-primary" id="addRecordBtn" aria-haspopup="dialog">
+              <span>➕ Add Student Record</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- SEARCH & FILTER TOOLBAR -->
+        <div class="card card-sm mb-6" style="background:var(--bg-surface);">
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            
+            <!-- Search -->
+            <div class="search-input" style="flex:1;min-width:240px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="recordSearch" placeholder="Search by name, roll number, or subjects...">
+            </div>
+
+            <!-- Class filter -->
+            <div style="min-width:140px;">
+              <select id="classFilter" class="form-select" style="min-height:36px;height:36px;padding-top:4px;padding-bottom:4px;">
+                <option value="all">All Classes</option>
+                <option value="10-A">Class 10-A</option>
+                <option value="10-B">Class 10-B</option>
+                <option value="9-A">Class 9-A</option>
+                <option value="11-A">Class 11-A</option>
+              </select>
+            </div>
+
+            <!-- Sort By -->
+            <div style="min-width:140px;">
+              <select id="sortBy" class="form-select" style="min-height:36px;height:36px;padding-top:4px;padding-bottom:4px;">
+                <option value="name">Sort by Name</option>
+                <option value="roll">Sort by Roll Number</option>
+                <option value="marks">Sort by Marks (High-Low)</option>
+              </select>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- DATA TABLE -->
+        <div class="table-container animate-fade-in">
+          <table class="table" id="recordsTable">
+            <thead>
+              <tr>
+                <th>Roll Number</th>
+                <th>Student Name</th>
+                <th>Class & Sec</th>
+                <th>Core Subjects</th>
+                <th>Term Marks</th>
+                <th>Attendance</th>
+                <th>Status</th>
+                <th class="text-right">Actions</th>
+              </tr>
+            </thead>
+            <tbody id="recordsTableBody">
+              <!-- Rendered dynamically -->
+            </tbody>
+          </table>
+        </div>
+
+      </main>
+    </div>
+
+  </div>
+
+  <!-- ADD/EDIT RECORD MODAL -->
+  <div class="modal-overlay" id="recordModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modalTitle">Add New Student Record</h2>
+        <button class="btn-ghost" id="closeModalBtn" aria-label="Close modal" style="padding:4px;border-radius:50%;display:flex;align-items:center;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+      
+      <form id="recordForm" novalidate>
+        <div class="modal-body" style="display:flex;flex-direction:column;gap:16px;">
+          <input type="hidden" id="recordIndex">
+          
+          <!-- Name -->
+          <div class="form-group">
+            <label for="studentName" class="form-label">Full Name<span class="required">*</span></label>
+            <input type="text" id="studentName" class="form-input" placeholder="e.g. Arjun Mehta" required>
+            <span class="form-error" id="nameError"></span>
+          </div>
+
+          <div class="grid grid-2 gap-4">
+            <!-- Roll No -->
+            <div class="form-group">
+              <label for="rollNo" class="form-label">Roll Number<span class="required">*</span></label>
+              <input type="text" id="rollNo" class="form-input" placeholder="e.g. SB2024-042" required>
+              <span class="form-error" id="rollError"></span>
+            </div>
+            
+            <!-- Class -->
+            <div class="form-group">
+              <label for="studentClass" class="form-label">Class & Section<span class="required">*</span></label>
+              <input type="text" id="studentClass" class="form-input" placeholder="e.g. 10-A" required>
+              <span class="form-error" id="classError"></span>
+            </div>
+          </div>
+
+          <div class="grid grid-2 gap-4">
+            <!-- Subjects -->
+            <div class="form-group">
+              <label for="subjects" class="form-label">Subjects (comma separated)</label>
+              <input type="text" id="subjects" class="form-input" placeholder="Math, Science, English">
+            </div>
+
+            <!-- Marks -->
+            <div class="form-group">
+              <label for="marks" class="form-label">Term Marks (%)<span class="required">*</span></label>
+              <input type="number" id="marks" class="form-input" placeholder="e.g. 85" min="0" max="100" required>
+              <span class="form-error" id="marksError"></span>
+            </div>
+          </div>
+
+          <!-- Attendance -->
+          <div class="form-group">
+            <label for="attendance" class="form-label">Attendance (%)<span class="required">*</span></label>
+            <input type="number" id="attendance" class="form-input" placeholder="e.g. 95" min="0" max="100" required>
+            <span class="form-error" id="attendanceError"></span>
+          </div>
+
+        </div>
+        
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" id="cancelModalBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveRecordBtn">Save Record</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <script src="../js/core/auth.js"></script>
+  <script src="../js/components/nav.js"></script>
+  <script src="../js/components/toast.js"></script>
+  <script src="../js/pages/academic-records.js"></script>
+</body>
+</html>

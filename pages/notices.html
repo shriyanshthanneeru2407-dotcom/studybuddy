@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Notices — StudyBuddy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../css/design-system.css">
+  <link rel="stylesheet" href="../css/components.css">
+  <link rel="stylesheet" href="../css/layouts.css">
+  <script src="../js/core/theme.js"></script>
+  <style>
+    /* Specific notice board styles */
+    .notices-board-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: var(--sp-6);
+    }
+    .notice-card-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: var(--sp-3);
+    }
+    .notice-card-title {
+      font-size: var(--text-base);
+      font-weight: var(--fw-bold);
+      color: var(--text-primary);
+      line-height: var(--lh-tight);
+    }
+    .notice-card-meta {
+      font-size: var(--text-xs);
+      color: var(--text-muted);
+      margin-bottom: var(--sp-4);
+    }
+    .notice-card-body {
+      font-size: var(--text-sm);
+      color: var(--text-secondary);
+      line-height: var(--lh-relaxed);
+      margin-bottom: var(--sp-4);
+    }
+    .notice-attachment {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: var(--sp-2) var(--sp-3);
+      background: var(--bg-surface-2);
+      border: 1px solid var(--border-color);
+      border-radius: var(--radius-md);
+      font-size: var(--text-xs);
+      color: var(--color-primary);
+      text-decoration: none;
+      font-weight: var(--fw-semibold);
+    }
+    .notice-attachment:hover {
+      background: var(--color-primary-light);
+    }
+    .notice-attachment svg {
+      width: 14px;
+      height: 14px;
+    }
+    .notice-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 8px;
+      border-top: 1px solid var(--border-color-light);
+      padding-top: var(--sp-3);
+      margin-top: var(--sp-4);
+    }
+    @media (max-width: 768px) {
+      .notices-board-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="app-shell">
+    
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar" aria-label="Main Navigation">
+      <a href="../index.html" class="sidebar-brand">
+        <div class="sidebar-logo">S</div>
+        <span class="sidebar-brand-name">Study<span>Buddy</span></span>
+      </a>
+      
+      <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar collapse">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+      </button>
+
+      <nav class="sidebar-nav" id="sidebarNav">
+        <!-- Injected dynamically -->
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="sidebar-user" id="userDropdownBtn" aria-haspopup="true">
+          <div class="avatar avatar-sm" data-user-initials>--</div>
+          <div class="sidebar-user-info">
+            <div class="sidebar-user-name" data-user-name>Loading...</div>
+            <div class="sidebar-user-role" data-user-role>User</div>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <div class="main-content" id="mainContent">
+      
+      <!-- TOP NAV -->
+      <header class="topnav" id="topnav">
+        <div class="topnav-left">
+          <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open navigation drawer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+          </button>
+          <div class="topnav-title">Digital Notices</div>
+        </div>
+
+        <div class="topnav-right">
+          <button class="theme-toggle" aria-label="Toggle theme"></button>
+          <div class="dropdown" id="userDropdown">
+            <div class="dropdown-menu" style="right:0;">
+              <a href="settings.html" class="dropdown-item">Settings</a>
+              <a href="help-centre.html" class="dropdown-item">Help Centre</a>
+              <div class="dropdown-divider"></div>
+              <button class="dropdown-item danger" data-action="logout">Sign Out</button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- PAGE CONTENT -->
+      <main class="page-content">
+        
+        <div class="page-header">
+          <div>
+            <nav class="breadcrumb" aria-label="Breadcrumbs" id="autoBreadcrumb"></nav>
+            <h1 class="page-heading mt-2">Notice Board</h1>
+            <p class="page-subheading">Instant campus broadcast alerts, exam timetables, and teacher announcements.</p>
+          </div>
+          <div>
+            <button class="btn btn-primary" id="addNoticeBtn" aria-haspopup="dialog">
+              <span>📢 Create Notice Broadcast</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- SEARCH / FILTER CONTROLS -->
+        <div class="card card-sm mb-6" style="background:var(--bg-surface);">
+          <div style="display:flex;gap:12px;flex-wrap:wrap;align-items:center;">
+            <div class="search-input" style="flex:1;min-width:240px;">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input type="text" id="noticeSearch" placeholder="Search announcements...">
+            </div>
+            
+            <div style="min-width:140px;">
+              <select id="noticeFilter" class="form-select" style="min-height:36px;height:36px;padding-top:4px;padding-bottom:4px;">
+                <option value="all">All Announcements</option>
+                <option value="pinned">📌 Pinned Only</option>
+                <option value="recent">Recent Releases</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <!-- NOTICE GRID -->
+        <div class="notices-board-grid animate-fade-in" id="noticesBoardGrid">
+          <!-- Rendered dynamically -->
+        </div>
+
+      </main>
+    </div>
+
+  </div>
+
+  <!-- ADD NOTICE MODAL -->
+  <div class="modal-overlay" id="noticeModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+    <div class="modal" style="max-width:480px;">
+      <div class="modal-header">
+        <h2 class="modal-title" id="modalTitle">Broadcast Notice</h2>
+        <button class="btn-ghost" id="closeModalBtn" aria-label="Close modal" style="padding:4px;border-radius:50%;display:flex;align-items:center;">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" width="16" height="16"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+        </button>
+      </div>
+
+      <form id="noticeForm" novalidate>
+        <div class="modal-body" style="display:flex;flex-direction:column;gap:16px;">
+          <input type="hidden" id="noticeIndex">
+          
+          <!-- Title -->
+          <div class="form-group">
+            <label for="noticeTitle" class="form-label">Notice Title<span class="required">*</span></label>
+            <input type="text" id="noticeTitle" class="form-input" placeholder="e.g. Science Fair Registration" required>
+            <span class="form-error" id="titleError"></span>
+          </div>
+
+          <!-- Description -->
+          <div class="form-group">
+            <label for="noticeDesc" class="form-label">Announcement Details<span class="required">*</span></label>
+            <textarea id="noticeDesc" class="form-textarea" placeholder="Explain notice specifications, deadlines, guidelines..." style="min-height:100px;" required></textarea>
+            <span class="form-error" id="descError"></span>
+          </div>
+
+          <!-- Options -->
+          <div style="display:flex;flex-direction:column;gap:10px;margin-top:4px;">
+            <label class="check-group">
+              <input type="checkbox" id="pinNotice">
+              <span class="check-label">Pin Notice (Stick to top of board)</span>
+            </label>
+            
+            <label class="check-group">
+              <input type="checkbox" id="attachFile">
+              <span class="check-label">Simulate File Attachment (syllabus_2026.pdf)</span>
+            </label>
+          </div>
+
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-ghost" id="cancelModalBtn">Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveNoticeBtn">Send Broadcast</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+
+  <script src="../js/core/auth.js"></script>
+  <script src="../js/components/nav.js"></script>
+  <script src="../js/components/toast.js"></script>
+  <script src="../js/pages/notices.js"></script>
+</body>
+</html>
